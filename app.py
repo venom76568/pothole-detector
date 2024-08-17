@@ -6,7 +6,7 @@ import detect_potholes as dp
 
 # Initialize the Tkinter window
 root = tk.Tk()
-root.title("Pothole Detection App")
+root.title("Road Surface Irregularity Detector App")
 root.geometry("1200x800")
 root.configure(bg="#f3f3f3")
 
