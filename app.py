@@ -47,6 +47,14 @@ def reset_ui():
     empty_label.config(image="", text="Select an option to start detection")
 
 
+def resize_image(image, target_height):
+    # Resize image while maintaining aspect ratio
+    (h, w) = image.shape[:2]
+    aspect_ratio = w / h
+    new_width = int(target_height * aspect_ratio)
+    return cv2.resize(image, (new_width, target_height))
+
+
 def detect_from_image():
     hide_initial_buttons()
     file_path = filedialog.askopenfilename()
@@ -54,8 +62,11 @@ def detect_from_image():
         image = cv2.imread(file_path)
         detected_image = dp.detect_potholes(image)
 
+        # Resize image to maintain aspect ratio
+        resized_image = resize_image(detected_image, 600)
+
         # Convert the image to ImageTk format
-        img = cv2.cvtColor(detected_image, cv2.COLOR_BGR2RGB)
+        img = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img)
         imgtk = ImageTk.PhotoImage(image=img)
 
@@ -85,8 +96,11 @@ def video_loop(capture):
     if ret:
         detected_frame = dp.detect_potholes(frame)
 
+        # Resize frame to maintain aspect ratio
+        resized_frame = resize_image(detected_frame, 600)
+
         # Convert the frame to ImageTk format
-        img = cv2.cvtColor(detected_frame, cv2.COLOR_BGR2RGB)
+        img = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img)
         imgtk = ImageTk.PhotoImage(image=img)
 
@@ -151,17 +165,17 @@ close_button = Button(
     activeforeground="#ffffff",
 )
 
-# Create a frame for the output preview
+# Create a frame for the output preview with padding
 preview_frame = tk.Frame(
     root, width=600, height=600, bg="#ffffff", borderwidth=2, relief="solid"
 )
-# preview_frame.pack_propagate(
-#     False
-# )  # Prevent the frame from resizing to fit its content
+preview_frame.pack_propagate(
+    False
+)  # Prevent the frame from resizing to fit its content
 preview_frame.pack(pady=(10, 20))
 
-# Label to display the video feed or processed image
-empty_label = Label(preview_frame, bg="#ffffff")
+# Label to display the video feed or processed image with padding
+empty_label = Label(preview_frame, bg="#ffffff", padx=10, pady=10)
 empty_label.place(relx=0.5, rely=0.5, anchor="center")
 
 # Run the Tkinter event loop
