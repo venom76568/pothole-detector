@@ -16,7 +16,7 @@ cap = None
 # Add a title label
 title_label = Label(
     root,
-    text="Pothole Detection System",
+    text="Road Surface Irregularity Detection",
     font=("Segoe UI", 32, "bold"),
     bg="#f3f3f3",
     fg="#333333",
