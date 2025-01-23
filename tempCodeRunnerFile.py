@@ -1,1 +1,1 @@
-preview_frame
+detect_from_video

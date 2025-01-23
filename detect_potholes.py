@@ -3,7 +3,7 @@ import supervision as sv
 from inference import get_model
 
 # Initialize the model only once
-model = get_model(model_id="pothole-detection-yolov8/1", api_key="osxsMKLysLPLbK65nNI3")
+model = get_model(model_id="pothole-detection-yolov8/1", api_key="API_KEY")
 
 
 # Function to detect potholes in a given frame
