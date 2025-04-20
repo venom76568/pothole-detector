@@ -1,5 +1,6 @@
-cv2
+opencv-python
 supervision
 inference
 tkinter
-PIL
+Pillow
+streamlit
