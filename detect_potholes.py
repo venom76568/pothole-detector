@@ -1,10 +1,17 @@
 import cv2
 import supervision as sv
 from inference import get_model
+from dotenv import load_dotenv
+import os
 
-# Initialize the model only once
-model = get_model(model_id="pothole-detection-yolov8/1", api_key="API_KEY")
+# Load environment variables from .env file
+load_dotenv()
 
+# Fetch the API key securely
+api_key = os.getenv("api_key")
+
+# Initialize the model
+model = get_model(model_id="pothole-detection-yolov8/1", api_key=api_key)
 
 # Function to detect potholes in a given frame
 def detect_potholes(frame):
